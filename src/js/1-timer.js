@@ -12,6 +12,7 @@ const secondsData = document.querySelector('[data-seconds]');
 const timer = document.querySelector(".timer");
 
 let userSelectedDate;
+let countdownInterval;
   
 const options = {
   enableTime: true,
@@ -25,23 +26,27 @@ const options = {
         message: 'Please choose a date in the future',
         position: 'topRight',
       });
-      startButton.disabled = true;
+      disableStartButton();
     } else {
-      startButton.disabled = false;
+      enableStartButton();
     }
   },
 };
+function enableStartButton() {
+  startButton.disabled = false;
+}
+function disableStartButton() {
+  startButton.disabled = true;
+}
 
-
-let countdownInterval;
 
 function startTimer() {
   countdownInterval = setInterval(updateTimer, 1000, userSelectedDate);
 };
 
-function updateTimer(endDate) {
+function updateTimer() {
   const currentDate = new Date();
-  const remainingTime = endDate - currentDate;
+  const remainingTime = userSelectedDate - currentDate;
   const { days, hours, minutes, seconds } = convertMs(remainingTime);
  
 if (!isNaN(days) && !isNaN(hours) && !isNaN(minutes) && !isNaN(seconds)) {
