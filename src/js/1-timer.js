@@ -64,6 +64,7 @@ if (!isNaN(days) && !isNaN(hours) && !isNaN(minutes) && !isNaN(seconds)) {
 startButton.addEventListener("click", ()=> {
    if (userSelectedDate) {
     startTimer(); 
+    disableStartButton();
   }
 });
 
@@ -71,16 +72,18 @@ function stopTimer() {
   if (countdownInterval) {
     
   clearInterval(countdownInterval);
-
-    daysData.textContent = '00';
+  countdownInterval = null;
+  enableStartButton();
+  resetTimerDisplay();
+  } 
+};
+function resetTimerDisplay(){
+  daysData.textContent = '00';
     hoursData.textContent = '00';
     minutesData.textContent = '00';
     secondsData.textContent = '00';
     
-    countdownInterval = null;
-  } 
 };
-
 
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
